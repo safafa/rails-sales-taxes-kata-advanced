@@ -1,0 +1,15 @@
+<%= render 'shared/page_header', text: 'Welcome' %>
+
+<p>
+  <em>ReceiptManager</em> that allows you to upload receipts and save them under a User profile.
+  From each receipt you can see the total price you spent as well as the total sales tax.
+  It automatically calculates the taxes based on the products that are on the receipt.
+  It is configurable, allowing you to change the data which is involved around taxes.
+  Such as what categories are exempt from sales tax,
+  what products in the store to base the receipt products on.
+</p>
+<p>
+  Please <%= link_to "login", login_path %> and then use the links in the navigation bar to test out <em>ReceiptManager</em>.
+</p>
+
+<%= image_tag random_cat_image_url %>
