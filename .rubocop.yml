@@ -11,10 +11,23 @@
 
 AllCops:
   Exclude:
-    - bin/bundle
-    - db/schema.rb
+    - 'bin/**'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'script/**/*'
   NewCops: enable
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*_test.rb'
+Metrics/MethodLength:
+  Max: 15
+Style/ClassVars:
+  Enabled: false
 Style/Documentation:
+  Enabled: false
+Style/RescueStandardError:
+  Enabled: false
+Style/SingleLineMethods:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
