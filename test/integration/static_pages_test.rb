@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class StaticPagesTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   test 'homepage should have a random cat image' do
     get root_path
 
