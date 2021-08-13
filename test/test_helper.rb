@@ -5,6 +5,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/autorun'
 require_relative 'support/helpers'
+require_relative 'support/receipt_helpers'
 
 module ActiveSupport
   class TestCase

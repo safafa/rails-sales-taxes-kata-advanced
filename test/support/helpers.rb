@@ -4,8 +4,18 @@ require 'active_support/test_case'
 
 module ActiveSupport
   class TestCase
+    FIXTURES_FILES_PATH = Rails.root.join 'test/fixtures/files/'
+
     def setup_mailer
       ActionMailer::Base.deliveries = []
+    end
+
+    def create_test_uploaded_file(path)
+      Rack::Test::UploadedFile.new path, 'text/plain'
+    end
+
+    def blank_file
+      @blank_file ||= create_test_uploaded_file("#{FIXTURES_FILES_PATH}/blank_file.txt")
     end
 
     def generate_unique_email

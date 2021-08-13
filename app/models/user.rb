@@ -8,4 +8,8 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :receipts, dependent: :destroy
+
+  def create_receipt_from_file(file)
+    Receipt.create_from_file(file, self)
+  end
 end
