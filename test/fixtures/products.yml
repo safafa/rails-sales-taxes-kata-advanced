@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+book:
+  name: book
+  category_id: 2
+music_cd:
+  name: music CD
+  category_id: 4
+chocolate:
+  name: chocolate bar
+  category_id: 1
+chocolate_box:
+  name: box of chocolates
+  category_id: 1
+perfume:
+  name: bottle of perfume
+  category_id: 4
+headache_pills:
+  name: packet of headache pills
+  category_id: 3
