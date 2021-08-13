@@ -1,70 +1,119 @@
-# Rails Sales Taxes Kata Advanced
-## Introduction
+ReceiptManager
+======================
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 
-You should provide sufficient evidence that your solution is complete by,
-as a minimum, indicating that it works correctly against the supplied test data.
+Functionality that allows you to upload receipts and save them under a User profile. From each receipt you can see the total price you spent as well as the total sales tax. It automatically calculates the taxes based on the products that are on the receipt. It is configurable, allowing you to change the data which is involved around taxes. Such as what categories are exempt from sales tax, what products in the store to base the receipt products on.
 
-## PROBLEM
+Test out the functionality on a [live demo app](https://the-receipt-manager.herokuapp.com/)
 
-Basic sales tax is applicable at a rate of 10% on all goods, except books, food, and medical products that are exempt.
-Import duty is an additional sales tax applicable on all imported goods at a rate of 5%, with no exemptions.
+### Note
+If you go to the live server or clone it, ReceiptManager is configured through Devise that users will need to confirm their signup via email.
 
-When I purchase items, I receive a receipt that lists the name of all the items and their price (including tax),
-finishing with the total cost of the items and the total amounts of sales taxes paid.
+In development the easiest way to confirm the user is via `rails console` like so:
 
-The rounding rules for sales tax are that for a tax rate of n%, a shelf price
-of p contains (np/100 rounded up to the nearest 0.05, ex. 0.5625 => 0.60, 1.649 => 1.65, 1.61 => 1.65)
-amount of sales tax.
+```
+User.find_by(email: 'username@email.com').confirm
+```
 
-The application should only ask to the user to upload a file with the content of a basket and print the receipt on a
-web page.
+## Pre-requisites:
+- Ruby v2.6.6
+- Ruby on Rails v6.1.4
+- sqlite3
 
-### BUSINESS REQUIREMENTS
+## Recommended:
+- Bundler
+- RBenv
 
-- The application's landing page should show a random picture of a cat at every visit.
-- The application's landing page must not contain any receipts.
-- A user should be able to sign up/log in.
-- Only signed-in users can upload a receipt.
-- Users should be able to see the history of their receipts.
+## Configuration to your database
+### ReceiptManager module
+If you wish to include `ReceiptManager` logic in an existing app, you might have the scenerio where
+you want to include logic apart from the `User` and `Product` models, as you might have these already. If you do have these models but are named differently, you will need to do some configuration.
 
-### TECHNICAL REQUIREMENTS
+Create a `ReceiptManager` module in `/lib` and add the necessary constants. For example:
+```ruby
+  PRODUCT_CLASS = ShopProduct # your Product class
+  USER_CLASS = Customer # your User class
+```
 
-- To get the cats images, you must use the services provided by https://thecatapi.com/.
-  You can sign up for a free account to get your API key.
-- Ensure to address fundamental security issues. The code should be
-  ready to be deployed in a real production environment.
+`ReceiptManager` also needs to know what category the products belong to in order to calculate sales taxes correctly. If you have a category class that `has_many` "Product"s and if it has an attribute of `name`, then you need no configuration. But for example if `category` is an `enum` in the "Product" model then you will need to override the `ReceiptManager` module method like so:
+```ruby
+  def category_name(category)
+    category # overrides the default `category.name`
+  end
+```
 
-### INPUT
+### TaxHandler module
+Lastly, you may want to override some constants in the `TaxHandler` module such as `EXEMPT_SALES_TAX_CATEGORIES` or `IMPORT_TAX_DECIMAL` depending on your country's tax regulations. Create a `TaxHandler` module in `/lib` and overwrite the constant simarly to:
+```ruby
+ EXEMPT_SALES_TAX_CATEGORIES = %w[book food medical].freeze
+```
 
-The files basket_1.txt, basket_2.txt, and basket_3.txt are the three input files for the application.
 
-Write a Rails application that prints out the receipt details for the three baskets provided.
+Clone the project
+------------
+```
+$ git clone git@github.com:RyanofWoods/rails-sales-taxes-kata-advanced.git rails-receipt-manager
+$ cd rails-receipt-manager
+```
 
-### EXPECTED OUTPUT
+> If you use bundler as your package manager:
+```
+$ bundle install
+```
 
-You can format the output in any way you like. Make sure that the results are correct,
-and all the fields are included.
+> Setup database with:
 
-basket_1.txt:
+```
+$ rails db:create
+$ rails db:migrate
+$ rails db:seed
+```
 
-- 1 book : 12.49
-- 1 music CD: 16.49
-- 1 chocolate bar: 0.85
-- Sales Taxes: 1.50
-- Total: 29.83
+Run the tests
+------------
+This runs only normal tests and no minitest system (feature) tests 
+```
+$ rails test
+```
 
-basket_2.txt:
+This runs only minitest system (feature) tests
+```
+$ rails test:system
+```
 
-- 1 imported box of chocolates: 10.50
-- 1 imported bottle of perfume: 54.65
-- Sales Taxes: 7.65
-- Total: 65.15
+This runs normal system tests. Note the order is important
+```
+rails test:system test
+```
 
-basket_3.txt:
+Run rubocop
+------------
+```
+$ rubocop
+```
 
-- 1 imported bottle of perfume: 32.19
-- 1 bottle of perfume: 20.89
-- 1 packet of headache pills: 9.75
-- 1 imported box of chocolates: 11.85
-- Sales Taxes: 6.70
-- Total: 74.68
+Start the server
+------------
+Start server with:
+
+```
+$ rails server
+```
+
+Open `http://localhost:3000/` in your browser.
+
+Caveats
+------------
+- Sales tax and import tax percentages as well as the categories exempt from sales tax are constants, however, these are not constant in real-life and will change over time. However, ReceiptManager currently has no way of recording these changes. Thus old receipts may be calculated incorrectly.
+- If you have products where their names may be changed and that you have no record of these changes,
+  then the ReceiptManager will not find the corresponding product through the receipt product name. If you do keep track of these changes, you will need to override some ReceiptManager logic so you can find the receipt Products which names have changed.
+
+Contributing
+------------
+All contributions are welcome. To increase the chances of merging your `Pull requests`, do the following:
+- Follow Rails' conventions and idiomatics
+- Add tests for new functionality
+- Ensure that the test suite is green and that there are no new `rubocop` style offenses with every commit
+- Ensure that a commit only has only one logical change
+- Add [good commit messages](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) explaining why the changes were made and any important details
+- Achieve clean fast-forwarding commits by `rebasing` over `merging` -> [information](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
