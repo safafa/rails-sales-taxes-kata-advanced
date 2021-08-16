@@ -1,0 +1,5 @@
+<%= render 'shared/page_header', text: "Your receipts (#{@receipts.count}): " %>
+
+<ol>
+  <%= render @receipts || 'empty_list' %>
+</ol>
