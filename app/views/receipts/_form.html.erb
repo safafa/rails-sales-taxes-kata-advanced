@@ -1,0 +1,7 @@
+<%= form_with model: receipt do |f| %>
+  <%= render 'shared/error_messages', errors: @receipt&.errors %>
+
+  <%= f.file_field :uploaded_receipt, accept: 'text/plain' %>
+
+  <%= f.submit "Submit" %>
+<% end %>
