@@ -21,4 +21,9 @@ class ReceiptItem < ApplicationRecord
   def shelf_price
     @shelf_price ||= (price * quantity + sales_tax).round(2)
   end
+
+  def to_s
+    full_name = imported? ? "imported #{name}" : name
+    "#{quantity} #{full_name}: #{format('%.2f', shelf_price)}"
+  end
 end

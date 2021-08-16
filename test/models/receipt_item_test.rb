@@ -38,4 +38,14 @@ class ReceiptItemTest < ActiveSupport::TestCase
     assert_equal shelf_price, 54.65
     assert_equal sales_tax, 7.15
   end
+
+  test 'returns receipt like friendly text through #to_s' do
+    unimported_item = ReceiptItem.new(quantity: 1, price: 12.49, imported: false, name: 'book',
+                                      product: products(:book))
+    assert_equal '1 book: 12.49', unimported_item.to_s
+
+    imported_item = ReceiptItem.new(quantity: 1, price: 10.00, imported: true,
+                                    name: 'box of chocolates', product: products(:chocolate_box))
+    assert_equal '1 imported box of chocolates: 10.50', imported_item.to_s
+  end
 end

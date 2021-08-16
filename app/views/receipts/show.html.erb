@@ -1,0 +1,9 @@
+<%= render 'shared/page_header', text: 'Receipt:' %>
+
+<ul>
+  <%= render @receipt.receipt_items %>
+  <li><p><%= "Sales Taxes: #{money_as_string(@receipt.total_sales_tax)}" %></p></li>
+  <li><p><%= "Total: #{money_as_string(@receipt.total)}" %></p></li>
+</ul>
+
+<%= link_to 'Go back', receipts_path %>
