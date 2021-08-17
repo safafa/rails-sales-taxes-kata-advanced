@@ -4,6 +4,12 @@
   <ul class="navbar-nav">
     <% if user_signed_in? %>
       <li class="nav-item ml-2">
+        <%= link_to 'Upload Receipt', new_receipt_path %>
+      </li>
+      <li class="nav-item ml-2">
+        <%= link_to 'My Receipts', receipts_path %>
+      </li>
+      <li class="nav-item ml-2">
         <%= link_to 'Logout', logout_path, method: :delete %>
       </li>
     <% else %>
