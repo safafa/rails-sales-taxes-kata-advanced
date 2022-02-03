@@ -1,0 +1,6 @@
+<h1>Receipt <%=@basket.id%></h1>
+<div class="show-div">
+<%= render "entries", entries: @basket.entries %>
+<p> Sales taxes : <%=@basket.sales_taxes%> </p>
+<p> Total: <%=@basket.total%> </p>
+</div>

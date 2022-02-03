@@ -1,0 +1,30 @@
+@mixin center {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.history-div {
+ text-align: center;
+ @include center;
+}
+
+.show-div {
+  @include center;
+
+ ul {
+  list-style-type: none;
+ }
+}
+
+form {
+  @include center;
+
+ .btn {
+    float: right;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+ }
+}

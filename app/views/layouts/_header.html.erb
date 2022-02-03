@@ -3,12 +3,13 @@
     <%= link_to "Receipts manager", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", root_path %></li>
         <% if logged_in? %>
-          <li><%= link_to "Receipts", "#" %></li>
-          <li><%= link_to "New receipt", "#" %></li>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Receipts", baskets_path %></li>
+          <li><%= link_to "New receipt", new_basket_path %></li>
         <% else %>
           <li><%= link_to "Log in", "#" %></li>
+          <li><%= link_to "Sign up", "#" %></li>
         <% end %>
       </ul>
     </nav>
