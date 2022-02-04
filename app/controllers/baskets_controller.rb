@@ -1,6 +1,6 @@
 class BasketsController < ApplicationController
   def index
-    @baskets = Basket.all
+    @baskets = current_user.baskets.all
   end
 
   def show
@@ -12,7 +12,7 @@ class BasketsController < ApplicationController
   end
 
   def create
-    @basket = Basket.new(sales_taxes: 0, total: 0)
+    @basket = current_user.baskets.build(sales_taxes: 0, total: 0)
     @basket.build_entries_from_file_upload(params[:file])
     @basket.save
     redirect_to basket_path(@basket.id)
