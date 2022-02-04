@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Basket, type: :model do
   let(:filepath) { Rails.root.join('baskets', 'basket_2.txt') }
   let(:file) { Rack::Test::UploadedFile.new(filepath, 'txt') }
-  let(:basket) { create(:basket) }
+  let(:user) { create(:user) }
+  let(:basket) { create(:basket, user: user) }
 
   before do
     basket.build_entries_from_file_upload(file)
@@ -11,6 +12,7 @@ RSpec.describe Basket, type: :model do
 
   describe 'associations' do
     it { should have_many(:entries) }
+    it { should belong_to(:user) }
   end
 
   describe 'Build goods from file appload' do

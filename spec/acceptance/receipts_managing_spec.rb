@@ -1,10 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Receipts managing', type: :feature do
+  let(:user) { create(:user) }
+  before do
+    visit new_user_session_path
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Log in'
+  end
   context 'when user logged in' do
     let(:filepath) { Rails.root.join('baskets', 'basket_2.txt') }
     let(:file) { Rack::Test::UploadedFile.new(filepath, 'txt') }
-    let(:basket) { create(:basket) }
+    let(:basket) { create(:basket, user: user) }
 
     it 'Upload basket and prints receipt' do
       visit root_path

@@ -1,5 +1,6 @@
 class Basket < ApplicationRecord
   has_many :entries, dependent: :destroy
+  belongs_to :user
 
   before_save :update_taxes_update_total
 

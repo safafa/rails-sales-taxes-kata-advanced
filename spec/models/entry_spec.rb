@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Entry, type: :model do
-  let(:basket) { create(:basket) }
+  let(:user) { create(:user) }
+  let(:basket) { create(:basket, user: user) }
   let(:imported) { build(:imported, basket: basket) }
   let(:exempt) { build(:exempt, basket: basket) }
   let(:imported_exempt) { build(:importedExempt, basket: basket) }
