@@ -18,5 +18,6 @@ RSpec.describe 'landing page', type: :feature do
     end
     it { expect(page).to have_content 'Receipts' }
     it { expect(page).to have_content 'New receipt' }
+    it { expect(page).to have_content 'Log out' }
   end
 end
