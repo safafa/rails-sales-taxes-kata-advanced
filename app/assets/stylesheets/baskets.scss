@@ -28,3 +28,7 @@ form {
     margin-right: auto;
  }
 }
+
+.div-center {
+  @include center;
+}
