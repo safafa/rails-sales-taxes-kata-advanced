@@ -2,6 +2,12 @@
 
 > Simple rails app that allows the users to upload a file with the content of a basket then prints their receipts on the web page.
 
+![image](https://user-images.githubusercontent.com/43698511/152758272-6c70d26e-d7e6-4f9a-bf3b-11e0d8d2fe31.png)
+
+
+## Live Demo
+
+[Link](https://taxes-kata-advanced.herokuapp.com/)
 
 ## Built With
 
