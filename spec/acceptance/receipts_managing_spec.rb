@@ -3,10 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Receipts managing', type: :feature do
   let(:user) { create(:user) }
   before do
-    visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
+    sign_in(user)
   end
   context 'when user logged in' do
     let(:filepath) { Rails.root.join('baskets', 'basket_2.txt') }
@@ -23,7 +20,7 @@ RSpec.describe 'Receipts managing', type: :feature do
       expect(page).to have_content 'Total: 65.15'
     end
 
-    it 'Displays receipts history' do
+    it 'Displays receipts history of the current_user' do
       basket.build_entries_from_file_upload(file)
       visit root_path
       click_link('Receipts')
