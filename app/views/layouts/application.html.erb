@@ -12,8 +12,12 @@
 
   <body>
   <%= render 'layouts/header' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <% if notice.present? %>
+    <div class="alert alert-success"><%= notice %></div>
+  <% end %>
+  <% if alert.present? %>
+    <div class="alert-danger"><%= alert %></div>
+  <%end%>
     <%= yield %>
   </body>
 </html>
