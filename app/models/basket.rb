@@ -1,6 +1,7 @@
 class Basket < ApplicationRecord
   has_many :entries, dependent: :destroy
   belongs_to :user
+  scope :latest, -> { order(created_at: :desc) }
 
   before_save :update_taxes_update_total
 
