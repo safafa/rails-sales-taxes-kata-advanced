@@ -2,7 +2,9 @@
 
 > Simple rails app that allows the users to create accounts, upload a file with the content of a basket then print their receipts on the web page and keep their receipts history.
 
+> Because no home is complete without the pitter patter of a kitty feet. The Home page displays a random cat picture at every visit.
 ![image](https://user-images.githubusercontent.com/43698511/152758272-6c70d26e-d7e6-4f9a-bf3b-11e0d8d2fe31.png)
+
 
 ## Live Demo
 
@@ -11,7 +13,7 @@
 ## Built With
 
 - Ruby v2.7.1
-- Ruby on Rails v6.0.4
+- Ruby on Rails v6.1.4
 
 ## Getting Started
 
@@ -25,7 +27,7 @@ npm: run <code> npm install </code>
 
 yarn: run <code> npm install --global yarn </code>
 
-Rails: 6.0.4
+Rails: 6.1.4
  
 ### Setup
 
@@ -36,6 +38,7 @@ git clone https://github.com/safafa/rails-sales-taxes-kata-advanced.git
 Move to the root directory
 
 API Key:
+
 You can sign up for a free account to get your API Key check https://thecatapi.com/.
 
 Open <code> app/models/cat_api.rb </code> and replace
