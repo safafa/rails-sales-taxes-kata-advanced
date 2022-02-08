@@ -15,7 +15,7 @@ RSpec.describe Basket, type: :model do
     it { should belong_to(:user) }
   end
 
-  describe 'Build goods from file appload' do
+  describe '#Build_entries_from_file_appload' do
     it { expect(basket.entries.size).to eq(2) }
   end
 
