@@ -13,9 +13,13 @@ class BasketsController < ApplicationController
 
   def create
     @basket = current_user.baskets.build(build_params)
-    @basket.build_entries_from_file_upload(params[:file])
-    @basket.save
-    redirect_to basket_path(@basket.id)
+    if @basket.build_entries_from_file_upload(params[:file])
+      @basket.save
+      redirect_to basket_path(@basket.id)
+    else
+      flash[:alert] = 'Please enter a valid txt file'
+      redirect_to new_basket_path
+    end
   end
 
   private
