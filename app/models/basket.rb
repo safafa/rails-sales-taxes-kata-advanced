@@ -6,18 +6,16 @@ class Basket < ApplicationRecord
   before_save :update_taxes_update_total
 
   def build_entries_from_file_upload(file)
-    if File.extname(file) == '.txt'
-      lines = file.read.split("\n")
-      lines.each do |line|
-        info = line.split
-        quantity = info[0]
-        price = info[-1]
-        name = info[1..-3].join(' ')
-        entry = entries.build(name: name, price: price, quantity: quantity, basic_tax: 0, import_tax: 0)
-        entry.save
-      end
-    else
-      false
+    return false unless File.extname(file) == '.txt'
+
+    lines = file.read.split("\n")
+    lines.each do |line|
+      info = line.split
+      quantity = info[0]
+      price = info[-1]
+      name = info[1..-3].join(' ')
+      entry = entries.build(name: name, price: price, quantity: quantity, basic_tax: 0, import_tax: 0)
+      entry.save
     end
   end
 
