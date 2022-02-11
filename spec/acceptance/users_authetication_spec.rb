@@ -22,7 +22,7 @@ RSpec.describe 'login', type: :feature do
   end
 end
 
-RSpec.describe 'logout', type: :feature do
+describe 'logout', type: :feature do
   let(:user) { create(:user) }
 
   it 'Signs out user' do

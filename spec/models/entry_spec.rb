@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Entry, type: :model do
-  let(:user) { create(:user) }
-  let(:basket) { create(:basket, user: user) }
-  let(:imported) { build(:imported, basket: basket) }
-  let(:exempt) { build(:exempt, basket: basket) }
-  let(:imported_exempt) { build(:importedExempt, basket: basket) }
+  let(:imported) { build(:imported) }
+  let(:exempt) { build(:exempt) }
+  let(:imported_exempt) { build(:imported_exempt) }
 
   describe 'associations' do
     it { should belong_to(:basket) }

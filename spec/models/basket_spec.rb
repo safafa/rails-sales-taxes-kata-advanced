@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe Basket, type: :model do
   let(:filepath) { Rails.root.join('baskets', 'basket_2.txt') }
   let(:file) { Rack::Test::UploadedFile.new(filepath, 'txt') }
-  let(:user) { create(:user) }
-  let(:basket) { create(:basket, user: user) }
+  let(:basket) { create(:basket) }
 
   before do
     basket.build_entries_from_file_upload(file)
@@ -15,7 +14,7 @@ RSpec.describe Basket, type: :model do
     it { should belong_to(:user) }
   end
 
-  describe '#Build_entries_from_file_appload' do
+  describe '#build_entries_from_file_upload' do
     it { expect(basket.entries.size).to eq(2) }
   end
 

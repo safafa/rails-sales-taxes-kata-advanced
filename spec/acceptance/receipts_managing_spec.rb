@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Receipts managing', type: :feature do
   let(:user) { create(:user) }
-  let(:other_user) { create(:other_user) }
+  let(:other_user) { create(:user, email: 'otheruser@example.com') }
   before do
     sign_in(user)
   end
   context 'when user logged in' do
-    it 'Upload basket and prints receipt' do
+    it 'Uploads basket and prints receipt' do
       upload_baskets(1)
       expect(page).to have_content '1 imported bottle of perfume : 54.65'
       expect(page).to have_content 'Sales taxes : 7.65'
