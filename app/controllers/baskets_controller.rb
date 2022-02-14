@@ -25,6 +25,6 @@ class BasketsController < ApplicationController
   private
 
   def build_params
-    { sales_taxes: 0, total: 0, name: current_user.baskets.length + 1 }
+    { name: current_user.baskets.length + 1 }
   end
 end
