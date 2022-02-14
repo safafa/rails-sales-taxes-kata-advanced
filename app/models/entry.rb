@@ -1,11 +1,10 @@
 class Entry < ApplicationRecord
-  belongs_to :basket
-
   EXEMPT_FROM_TAX = %w[chocolate book pills].freeze
   BASIC_TAX_RATE = 0.1
   IMPORT_TAX_RATE = 0.05
   PRESITION = 20.0
 
+  belongs_to :basket
   belongs_to :basket
 
   before_save :calulate_tax_update_price
