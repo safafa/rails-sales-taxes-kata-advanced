@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_081929) do
+ActiveRecord::Schema.define(version: 2022_02_14_091312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_081929) do
     t.string "price"
     t.string "basic_tax", default: "0"
     t.string "import_tax", default: "0"
-    t.string "final_price"
+    t.string "final_price", default: "0"
     t.bigint "basket_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

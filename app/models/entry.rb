@@ -1,5 +1,6 @@
 class Entry < ApplicationRecord
   EXEMPT_FROM_TAX = %w[chocolate book pills].freeze
+  IMPORTED_GOOD = 'imported'.freeze
   BASIC_TAX_RATE = 0.1
   IMPORT_TAX_RATE = 0.05
   PRESITION = 20.0
@@ -12,27 +13,36 @@ class Entry < ApplicationRecord
   private
 
   def calulate_tax_update_price
-    self.basic_tax = calcul_basic_tax
-    self.import_tax = calcul_import_tax
-    self.final_price = calcul_final_price
+    self.basic_tax = calculate_basic_tax
+    self.import_tax = calculate_import_tax
+    self.final_price = calculate_final_price
   end
 
-  def calcul_basic_tax
-    return round_up(quantity.to_f * price.to_f.round(2) * BASIC_TAX_RATE) unless EXEMPT_FROM_TAX.any? do |exception|
-      name.include?(exception)
+  def calculate_basic_tax
+    unless EXEMPT_FROM_TAX.any? do |exception|
+             name.include?(exception)
+           end
+      return round_up(BigDecimal(quantity,
+                                 2) * BigDecimal(price,
+                                                 2) * BigDecimal(BASIC_TAX_RATE,
+                                                                 2))
     end
 
-    '0'
+    0
   end
 
-  def calcul_import_tax
-    return round_up(quantity.to_f * price.to_f.round(2) * IMPORT_TAX_RATE) if name.include?('imported')
+  def calculate_import_tax
+    if name.include?(IMPORTED_GOOD)
+      return round_up(BigDecimal(quantity,
+                                 2) * BigDecimal(price,
+                                                 2) * BigDecimal(IMPORT_TAX_RATE, 2))
+    end
 
-    '0'
+    0
   end
 
-  def calcul_final_price
-    (quantity.to_f * (price.to_f.round(2) + basic_tax.to_f + import_tax.to_f)).round(2)
+  def calculate_final_price
+    (BigDecimal(quantity, 2) * (BigDecimal(price, 2) + BigDecimal(basic_tax, 2) + BigDecimal(import_tax, 2))).round(2)
   end
 
   def round_up(value)

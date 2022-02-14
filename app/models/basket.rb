@@ -3,7 +3,7 @@ class Basket < ApplicationRecord
   belongs_to :user
   scope :latest, -> { order(created_at: :desc) }
 
-  before_save :update_taxes_update_total
+  before_save :update_taxes_and_total
 
   def build_entries_from_file_upload(file)
     return false unless File.extname(file) == '.txt'
@@ -21,7 +21,7 @@ class Basket < ApplicationRecord
 
   private
 
-  def update_taxes_update_total
+  def update_taxes_and_total
     self.sales_taxes = sum_tax
     self.total = sum_total
   end
@@ -29,7 +29,7 @@ class Basket < ApplicationRecord
   def sum_tax
     sum = 0
     entries.each do |entry|
-      sum += entry.basic_tax.to_f + entry.import_tax.to_f
+      sum += BigDecimal(entry.basic_tax, 2) + BigDecimal(entry.import_tax, 2)
     end
     sum.round(2)
   end
@@ -37,7 +37,7 @@ class Basket < ApplicationRecord
   def sum_total
     sum = 0
     entries.each do |entry|
-      sum += entry.final_price.to_f
+      sum += BigDecimal(entry.final_price, 2)
     end
     sum.round(2)
   end
