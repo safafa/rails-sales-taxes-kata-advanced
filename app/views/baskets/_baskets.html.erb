@@ -1,0 +1,6 @@
+<%= will_paginate baskets%>
+<div class="list-group">
+<% baskets.each do |basket|%>
+    <a class="list-group-item list-group-item-action" href= <%= basket_path(basket.id)%> >  Receipt <%= basket.name%> | <%= basket.updated_at%> </a>
+    <%end%>
+</div>
